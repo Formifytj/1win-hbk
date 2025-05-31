@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>1winhbk</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+    body {
+      background-color: #121212;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 15px 30px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      gap: 8px;
+    }
+    .key-counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      color: #00ffcc;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .key-counter img {
+      width: 24px;
+      height: 24px;
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc, 0 0 20px #00cc99;
+      margin-top: 60px;
+      margin-bottom: 20px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-template-rows: repeat(5, 60px);
+      gap: 6px;
+      padding: 10px;
+      background-color: #1e1e1e;
+      border: 3px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: white;
+      opacity: 1;
+      transition: box-shadow 0.5s ease;
+      position: relative;
+      user-select: none;
+    }
+    .cell.glow {
+      box-shadow:
+        0 0 8px #00ff99,
+        0 0 15px #00ff99,
+        0 0 25px #00ff99;
+    }
+    .cell.open {
+      background-color: #2a2a2a;
+      font-size: 28px;
+      color: #00ff99;
+      animation: fadeScaleIn 0.6s forwards;
+    }
+    @keyframes fadeScaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.6);
+        text-shadow: none;
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+        text-shadow: 0 0 8px #00ff99;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        text-shadow: 0 0 12px #00ff99;
+      }
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: linear-gradient(to bottom, #1a1a1a, #000);
+      color: white;
+      border: 1px solid #333;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+    button:hover:enabled {
+      background: linear-gradient(to bottom, #2a2a2a, #111);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    input[type=number] {
+      width: 60px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #000;
+      color: white;
+      text-align: center;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      color: #00ffcc;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    /* Animated footer */
+    footer {
+      width: 100%;
+      background: linear-gradient(270deg, #00ffcc, #009977, #00ffcc);
+      background-size: 600% 600%;
+      color: #121212;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 12px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      box-shadow: 0 -2px 10px rgba(0,255,204,0.5);
+      letter-spacing: 2px;
+      font-weight: 700;
+      user-select: none;
+      z-index: 1000;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    footer button {
+      margin-left: 20px;
+      padding: 6px 14px;
+      font-size: 14px;
+      background: #121212;
+      color: #00ffcc;
+      border: 2px solid #00ffcc;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: none;
+      vertical-align: middle;
+    }
+    footer button:hover {
+      background: #00ffcc;
+      color: #121212;
+      box-shadow: 0 0 8px #00ffcc;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="key-counter">
+      <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="key" />
+      <span id="keyCount">10</span>
+    </div>
+  </div>
+
+  <h1>1winhbk</h1>
+
+  <div class="container" id="grid"></div>
+
+  <div class="buttons">
+    <label for="bombCount">Количество бомб:</label>
+    <input type="number" id="bombCount" value="4" min="1" max="10" />
+    <button id="signalBtn" onclick="enableStart()">Получить сигнал</button>
+    <button id="startBtn" onclick="startGame()" disabled>Старт</button>
+  </div>
+
+  <footer>
+    © 2025 1winhbk — <button onclick="alert('Спасибо за игру!')">Спасибо!</button>
+  </footer>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const startBtn = document.getElementById('startBtn');
+    const signalBtn = document.getElementById('signalBtn');
+    const keyCountSpan = document.getElementById('keyCount');
+    const bombInput = document.getElementById('bombCount');
+
+    let keyCount = 10;
+    let canStart = false;
+
+    for (let i = 0; i < 25; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cell.dataset.index = i;
+      grid.appendChild(cell);
+    }
+
+    function enableStart() {
+      if (keyCount > 0) {
+        canStart = true;
+        startBtn.disabled = false;
+
+        keyCount--;
+        keyCountSpan.textContent = keyCount;
+
+        if (keyCount === 0) {
+          signalBtn.disabled = true;
+          setTimeout(() => {
+            keyCount = 10;
+            keyCountSpan.textContent = keyCount;
+            signalBtn.disabled = false;
+            alert("Вы получите следующий сигнал через 24 часа.");
+          }, 120000);
+        }
+      }
+    }
+
+    function startGame() {
+      if (!canStart || keyCount < 0) return;
+
+      resetCells();
+
+      const cells = Array.from(document.querySelectorAll('.cell'));
+      const openCount = 4;
+
+      const randomIndexes = [];
+
+      while (randomIndexes.length < openCount) {
+        const rand = Math.floor(Math.random() * 25);
+        if (!randomIndexes.includes(rand)) {
+          randomIndexes.push(rand);
+        }
+      }
+
+      randomIndexes.forEach((index, i) => {
+        setTimeout(() => {
+          const cell = cells[index];
+          cell.classList.add('open', 'glow');
+          cell.textContent = "⭐";
+          setTimeout(() => {
+            cell.classList.remove('glow');
+          }, 1500);
+        }, i * 900);
+      });
+
+      startBtn.disabled = true;
+      canStart = false;
+    }
+
+    function resetCells() {
+      const cells = document.querySelectorAll('.cell');
+      cells.forEach(cell => {
+        cell.classList.remove('open', 'glow');
+        cell.textContent = '';
+      });
+    }
+  </script>
+
+</body>
+</html>
